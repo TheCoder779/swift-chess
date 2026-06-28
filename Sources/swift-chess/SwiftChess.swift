@@ -1,4 +1,5 @@
-struct main {
+@main
+struct SwiftChess {
     static func main() {
         print("Hello, World!")
     }
