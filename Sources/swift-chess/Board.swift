@@ -1,11 +1,11 @@
 struct Board {
-    var board = [[Dictionary<Character, Int>]]()
-    var alphabet: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    var board: [[String]] = [[String]]()
+    var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h"]
     mutating func initBoard() {
         for i in 1..<8 {
-            var currentRow = [Dictionary<Character, Int>]()
+            var currentRow: [String] = [String]()
                 for j in 0..<8 {
-                    currentRow.append([alphabet[i]: j])
+                    currentRow.append([alphabet[i], String(j + 1)].joined())
             }
             board.append(currentRow)
         }
