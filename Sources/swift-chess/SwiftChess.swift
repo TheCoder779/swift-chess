@@ -1,6 +1,8 @@
 @main
 struct SwiftChess {
     static func main() {
-        print("Hello, World!")
+        var board = Board()
+        board.initBoard()
+        print(board.board)
     }
 }
