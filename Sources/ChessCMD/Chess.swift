@@ -1,8 +1,9 @@
+import Foundation
+
 @main
-struct SwiftChess {
+struct Chess {
   static func main() {
-    var board = Board()
-    board.initBoard()
-    board.displayBoard()
+    let board = Board()
+    board.printBoard()
   }
 }
