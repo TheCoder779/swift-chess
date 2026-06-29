@@ -6,6 +6,8 @@ public struct Board: Codable {
   ///
   /// The board is stored as an array of rows, in which each row is an array of columns.
   var bitBoard: String
+  var whiteUnmovedPawns: String
+  var blackUnmovedPawns: String
   var whitePawns: String
   var blackPawns: String
   var whiteKnights: String
@@ -36,12 +38,12 @@ public struct Board: Codable {
 
   /// Create a new board.
   public init() {
-    // Use Unicode to get uppercase English characters
-    //let alphabet = (97...122).compactMap { UnicodeScalar($0) }.map { Character($0) }
     //64 zeros: 0000000000000000000000000000000000000000000000000000000000000000
     // Populate the board by a very human-inefficient way but is very practical for the machine
-    whitePawns =   "0000000011111111000000000000000000000000000000000000000000000000"
-    blackPawns =   "0000000000000000000000000000000000000000000000001111111100000000"
+    whiteUnmovedPawns =   "0000000011111111000000000000000000000000000000000000000000000000"
+    blackUnmovedPawns =   "0000000000000000000000000000000000000000000000001111111100000000"
+    whitePawns =   "0000000000000000000000000000000000000000000000000000000000000000"
+    blackPawns =   "0000000000000000000000000000000000000000000000000000000000000000"
     whiteKnights = "0100001000000000000000000000000000000000000000000000000000000000"
     blackKnights = "0000000000000000000000000000000000000000000000000000000001000010"
     whiteBishops = "0010010000000000000000000000000000000000000000000000000000000000"
@@ -53,8 +55,96 @@ public struct Board: Codable {
     whiteKing =    "0000100000000000000000000000000000000000000000000000000000000000"
     blackKing =    "0000000000000000000000000000000000000000000000000000000000001000"
     bitBoard = ""
+    bitBoard = update()
+  }
+
+  public mutating func move(index: Int, to newIndex: Int) {
+    let stringIndex = String.Index(utf16Offset: index, in: bitBoard)
+    var stringNewIndex = String.Index(utf16Offset: newIndex, in: bitBoard)
+    switch bitBoard[String.Index(utf16Offset: index, in: bitBoard)] {
+        case "U":
+            if bitBoard[stringNewIndex] == "." && index <= 56 {
+              if newIndex == index + 8 { 
+                stringNewIndex = String.Index(utf16Offset: newIndex + 8, in: bitBoard)
+                bitBoard.replaceSubrange(stringIndex...stringIndex, with: ".")
+                bitBoard.replaceSubrange(stringNewIndex...stringNewIndex, with: "P")
+              } else if newIndex == index + 16 {
+                stringNewIndex = String.Index(utf16Offset: newIndex + 16, in: bitBoard)
+                bitBoard.replaceSubrange(stringIndex...stringIndex, with: ".")
+                bitBoard.replaceSubrange(stringNewIndex...stringNewIndex, with: "P")
+              }
+            }
+            break
+        case "u":
+            if bitBoard[stringNewIndex] == "." && index <= 8 {
+              if newIndex == index - 8 { 
+                stringNewIndex = String.Index(utf16Offset: newIndex - 8, in: bitBoard)
+                bitBoard.replaceSubrange(stringIndex...stringIndex, with: ".")
+                bitBoard.replaceSubrange(stringNewIndex...stringNewIndex, with: "p")
+              } else if newIndex == index - 16 {
+                stringNewIndex = String.Index(utf16Offset: newIndex - 16, in: bitBoard)
+                bitBoard.replaceSubrange(stringIndex...stringIndex, with: ".")
+                bitBoard.replaceSubrange(stringNewIndex...stringNewIndex, with: "p")
+              }
+            }
+            break
+        case "P":
+            if newIndex == index + 8 || (newIndex == index + 16) {
+              
+            }
+            break
+        case "p":
+            // Move black pawn
+            break
+        case "N":
+            // Move white knight
+            break
+        case "n":
+            // Move black knight 
+            break
+        case "B":
+            // Move white bishop
+            break
+        case "b":
+            // Move black bishop
+            break
+        case "R":
+            // Move white rook
+            break
+        case "r":
+            // Move black rook
+            break
+        case "Q":
+            // Move white queen
+            break
+        case "q":
+            // Move black queen
+            break
+        case "K":
+            // Move white king
+            break
+        case "k":
+            // Move black king 
+            break
+        case ".":
+            // No piece at the given index
+            break
+        default:
+            // Invalid piece character
+            break
+    }
+
+
+  }
+
+  mutating func update() -> String {
+    bitBoard = ""
     for i in 0..<64 {
-      if whitePawns[whitePawns.index(whitePawns.startIndex, offsetBy: i)] == "1" {
+      if whiteUnmovedPawns[whiteUnmovedPawns.index(whiteUnmovedPawns.startIndex, offsetBy: i)] == "1" {
+        bitBoard.append("U")
+      } else if blackUnmovedPawns[blackUnmovedPawns.index(blackUnmovedPawns.startIndex, offsetBy: i)] == "1" {
+        bitBoard.append("u")
+      } else if whitePawns[whitePawns.index(whitePawns.startIndex, offsetBy: i)] == "1" {
         bitBoard.append("P")
       } else if blackPawns[blackPawns.index(blackPawns.startIndex, offsetBy: i)] == "1" {
         bitBoard.append("p")
@@ -82,6 +172,7 @@ public struct Board: Codable {
         bitBoard.append(".")
       }
     }
-    print(bitBoard + "\n Initialized board")
+    print(bitBoard + "\n Updated board")
+    return bitBoard
   }
 }
