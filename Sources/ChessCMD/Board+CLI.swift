@@ -1,3 +1,4 @@
+/*
 import Chess
 
 extension Board {
@@ -11,3 +12,4 @@ extension Board {
     }
   }
 }
+*/

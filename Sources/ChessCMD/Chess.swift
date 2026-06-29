@@ -5,6 +5,5 @@ import Foundation
 struct Chess {
   static func main() {
     let board = Board()
-    board.printBoard()
   }
 }
