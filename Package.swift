@@ -9,17 +9,20 @@ let swiftSettings: [SwiftSetting] = [
 
 let package = Package(
   name: "swift-chess",
+
   targets: [
     .target(  // <- Logic,
       name: "Chess",
       swiftSettings: swiftSettings
     ),
     .executableTarget(  // <- Command-line tool
-      name: "ChessCMD"
+      name: "ChessCMD",
+      swiftSettings: swiftSettings
     ),
     .testTarget(  // <- Tests for logic
       name: "ChessTests",
-      dependencies: ["Chess"]
+      dependencies: ["Chess"],
+      swiftSettings: swiftSettings
     ),
   ],
   swiftLanguageModes: [.v6]
