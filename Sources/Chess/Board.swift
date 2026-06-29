@@ -1,14 +1,14 @@
 import Foundation
 
 /// A chess board.
-struct Board: Codable {
+public struct Board: Codable {
   /// The raw dictionary that contains the board's data.
   ///
   /// The board is stored as an array of rows, in which each row is an array of columns.
-  var rawBoard: [[String]]
+  public var rawBoard: [[String]]
 
   /// Create a new board.
-  init() {
+  public init() {
     self.rawBoard = []
 
     // Use Unicode to get uppercase English characters
@@ -21,16 +21,6 @@ struct Board: Codable {
         currentRow.append([String(alphabet[i]), String(j + 1)].joined())
       }
       rawBoard.append(currentRow)
-    }
-  }
-
-  /// Print the board to the console.
-  func printBoard() {
-    for i in 0..<8 {
-      for j in 0..<8 {
-        print(rawBoard[i][j], terminator: " ")
-      }
-      print()
     }
   }
 }

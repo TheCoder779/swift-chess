@@ -24,6 +24,7 @@ let package = Package(
     ),
     .executableTarget(  // <- Command-line tool
       name: "ChessCMD",
+      dependencies: ["Chess"],
       swiftSettings: swiftSettings
     ),
     .testTarget(  // <- Tests for logic

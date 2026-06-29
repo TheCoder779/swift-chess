@@ -1,3 +1,4 @@
+import Chess
 import Foundation
 
 @main
