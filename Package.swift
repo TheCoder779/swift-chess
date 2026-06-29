@@ -9,7 +9,14 @@ let swiftSettings: [SwiftSetting] = [
 
 let package = Package(
   name: "swift-chess",
-
+  platforms: [
+    .iOS(.v18),
+    .macOS(.v15),
+    .macCatalyst(.v18),
+    .tvOS(.v18),
+    .visionOS(.v2),
+    .watchOS(.v11),
+  ],
   targets: [
     .target(  // <- Logic,
       name: "Chess",
